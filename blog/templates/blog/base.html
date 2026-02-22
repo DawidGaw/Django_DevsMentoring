@@ -34,6 +34,7 @@
                     <div class="navbar-nav">
                         {% if user.is_authenticated %}
                             <div class="d-flex align-items-center">
+                                <a class="nav-item nav-link" href="{% url 'article-create' %}">Add Article</a>
                                 <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
                                 <form method="POST" action="{% url 'logout' %}" class="ml-2 mb-0 d-inline">
                                     {% csrf_token %}
