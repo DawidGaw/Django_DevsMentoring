@@ -1,0 +1,42 @@
+{% extends 'blog/base.html' %}
+
+{% block script %}
+<script>
+function getBaseUrl(path){
+    let protocol = window.location.protocol;
+    let host = window.location.hostname;
+    let port = window.location.port;
+
+    return `${protocol}//${host ? host : ""}:${port}${path}`
+}
+
+async function getArticles(){
+    let articlesResp = await fetch(getBaseUrl('/api/articles/'));
+
+    let data = await articlesResp.json();
+    data.forEach((article, index) => {
+        console.log('===================');
+        console.log(`Article no ${index}`);
+        console.log(`Article title: ${article.title}`);
+        console.log(`Article content: ${article.content}`);
+        console.log(`Article date posted: ${article.date_posted}`);
+        console.log(`Author id: ${article.author}`);
+    });
+}
+async function getArticle(value) {
+  let articleResp = await fetch(getBaseUrl(`/api/article/${value}`));
+  let data = await articleResp.json();
+
+  console.log(data);
+}
+</script>
+{% endblock %}
+
+{% block content %}
+    <h1>API Connector</h1>
+    <button onclick="getArticles()">Get Articles</button>
+    <br/><br/>
+
+    <input id="article-inputer"/>
+    <button onclick="getArticle(document.getElementById('article-inputer').value)">Get Article</button>
+{% endblock %}

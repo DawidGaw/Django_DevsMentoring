@@ -71,5 +71,6 @@ class ArticleDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return self.request.user == article.author
 
 
-
+def test_api(request):
+    return render(request, 'blog/test_api.html')
 
